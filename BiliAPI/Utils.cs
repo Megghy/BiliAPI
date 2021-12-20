@@ -67,8 +67,7 @@ namespace BiliAPI
             {
                 var uri = new Uri(url);
                 var request = new HttpRequestMessage(HttpMethod.Get, uri);
-                var ss = await httpClient.SendAsync(request);
-                return ss;
+                return await httpClient.SendAsync(request);
             }
             catch (Exception ex)
             {
