@@ -8,6 +8,13 @@
 
 部分信息参考于 [哔哩哔哩-API收集整理](https://github.com/SocialSisterYi/bilibili-API-collect)
 
+## 简单示例
+
+```csharp
+    (var success, var userData) = await BiliAPI.BiliUser.UserAPI.GetUserData(10021741);
+    var name = userData?.data?.name; //-Megghy
+```
+
 <details>
     <summary>目前支持的API</summary>
 
