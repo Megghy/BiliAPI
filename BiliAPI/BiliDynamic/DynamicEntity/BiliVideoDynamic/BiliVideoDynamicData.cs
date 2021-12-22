@@ -2,8 +2,14 @@
 
 namespace BiliAPI.BiliDynamic.DynamicEntity.BiliVideoDynamic
 {
-    public struct BiliVideoDynamicData
+    public struct BiliVideoDynamicData : IBiliDynamicCard
     {
+        public static BiliVideoDynamicData Get(string? cardJson)
+        {
+            return Utils.Deserialize<BiliVideoDynamicData>(cardJson);
+        }
+
+        public DynamicType Type => DynamicType.Video;
         public long aid { get; set; }
         public int attribute { get; set; }
         public long cid { get; set; }

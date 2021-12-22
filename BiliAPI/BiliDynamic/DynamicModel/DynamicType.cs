@@ -74,7 +74,7 @@ namespace BiliAPI.BiliDynamic.DynamicModel
         UnKnown2 = 1024,
 
         /// <summary>
-        /// H5动态
+        /// H5动态(活动
         /// </summary>
         H5 = 2048,
 

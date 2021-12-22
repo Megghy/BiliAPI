@@ -1,6 +1,6 @@
-﻿namespace BiliAPI.BiliSharedEntity
+﻿namespace BiliAPI.BiliInfo
 {
-    public class BiliRoot<T>
+    public class BiliRoot<T> where T : IBiliData
     {
         /// <summary>
         /// 返回状态码 0: 成功, 412: 速率过快被封禁

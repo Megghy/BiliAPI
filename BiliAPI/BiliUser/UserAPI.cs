@@ -1,5 +1,4 @@
-﻿using BiliAPI.BiliSharedEntity;
-using BiliAPI.BiliUser.UserModel;
+﻿using BiliAPI.BiliInfo;
 
 namespace BiliAPI.BiliUser
 {
@@ -13,7 +12,7 @@ namespace BiliAPI.BiliUser
         /// <returns>
         /// 是否成功及用户信息
         /// </returns>
-        public static async Task<(bool success, BiliRoot<BiliUserData>? userData)> GetUserData(
+        public static async Task<(bool success, BiliUserInfo? userData)> GetUserData(
             long uid)
         {
             if (uid < 0)
@@ -25,8 +24,8 @@ namespace BiliAPI.BiliUser
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
 
-                var result = Utils.Deserialize<BiliRoot<BiliUserData>>(response);
-                return (result != null, result);
+                var result = new BiliUserInfo(response);
+                return (result.Root?.code == 0, result);
             }
             catch (Exception ex)
             {

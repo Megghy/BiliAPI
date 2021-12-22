@@ -1,5 +1,4 @@
-﻿using BiliAPI.BiliSharedEntity;
-using BiliAPI.BiliVideo.VideoModel;
+﻿using BiliAPI.BiliInfo;
 
 namespace BiliAPI.BiliVideo
 {
@@ -13,7 +12,7 @@ namespace BiliAPI.BiliVideo
         /// <returns>
         /// 是否成功及用户视频信息
         /// </returns>
-        public static async Task<(bool success, BiliRoot<BiliVideoData>? userData)> GetUserVideoData(
+        public static async Task<(bool success, BiliVideoInfo? userData)> GetUserVideoData(
             long uid)
         {
             if (uid < 0)
@@ -25,8 +24,8 @@ namespace BiliAPI.BiliVideo
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
 
-                var result = Utils.Deserialize<BiliRoot<BiliVideoData>>(response);
-                return (result != null, result);
+                var result = new BiliVideoInfo(response);
+                return (result.Root?.code == 0, result);
             }
             catch (Exception ex)
             {
@@ -35,21 +34,20 @@ namespace BiliAPI.BiliVideo
             }
         }
         /// <summary>
-        /// 从服务器获取用户发布的视频
+        /// 从服务器获取用户最新发布的视频
         /// </summary>
         /// <param name="uid">用户ID</param>
         /// <returns>
         /// 是否成功及用户视频信息
         /// </returns>
-        public static async Task<(bool success, BiliVlistItem? userData)> GetUserLatestVideoData(
-            long uid
-            )
+        public static async Task<(bool success, BiliVideoItemInfo? userData)> GetUserLatestVideoData(
+            long uid)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");
             (var success, var result) = await GetUserVideoData(uid);
             if (success)
-                return (success, result?.data.list?.vlist?.FirstOrDefault());
+                return (success, result?.Videos.FirstOrDefault());
             else
                 return (false, null);
         }

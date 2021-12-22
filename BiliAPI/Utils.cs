@@ -17,7 +17,7 @@ namespace BiliAPI
                 {
                     JsonTokenType.True => true,
                     JsonTokenType.False => false,
-                    JsonTokenType.String => bool.TryParse(reader.GetString(), out var b) ? b : throw new JsonException(),
+                    JsonTokenType.String => bool.TryParse(reader.GetString(), out var b) ? b : throw new JsonException($"Unable parse \"{reader.GetString()}\" to Boolean"),
                     JsonTokenType.Number => reader.TryGetInt64(out long l) ? Convert.ToBoolean(l) : reader.TryGetDouble(out double d) && Convert.ToBoolean(d),
                     _ => throw new JsonException(),
                 };

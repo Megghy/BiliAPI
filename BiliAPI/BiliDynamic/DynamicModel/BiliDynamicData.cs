@@ -1,47 +1,42 @@
 ﻿using BiliAPI.BiliDynamic.DynamicEntity;
 using BiliAPI.BiliDynamic.DynamicEntity.BiliH5Dynamic;
-using System.Text.Json.Nodes;
+using BiliAPI.BiliDynamic.DynamicEntity.BiliVideoDynamic;
+using BiliAPI.BiliInfo;
 
 namespace BiliAPI.BiliDynamic.DynamicModel
 {
-    public struct BiliDynamicData
+    public struct BiliDynamicData : IBiliData
     {
         /// <summary>
         /// 是否还有更多动态
         /// </summary>
         public bool has_more { get; set; }
         public BiliDynamicAttentions? attentions { get; set; }
-        public BiliDynamicCardsItem[]? cards { get; set; }
+        public BiliDynamicCardContainer<IBiliDynamicCard>[]? cards { get; set; }
         public long next_offset { get; set; }
         public int _gt_ { get; set; }
 
         //private static MethodInfo? deserializer = typeof(Utils).GetMethod("Deserialize");
-        internal void SerializeCard()
+        internal void DeserializeCard()
         {
             if (cards is null)
                 return;
             for (int i = 0; i < cards.Length; i++)
             {
-                var card = cards[i];
-                var cardJson = card.card;
+                var cardJson = cards[i].card;
                 /*if (Condition.dynamicDict.ContainsKey(type))
                     {
                         deserializer?.MakeGenericMethod(Condition.dynamicDict[type]);
                         deserializer?.Invoke(null, new object[] { card.card }) as Condition.dynamicDict[type];
                     }
                         card.cardData(Utils.Deserialize<>());*/
-                switch ((DynamicType)(card.desc?.type ?? -1))
+                cards[i].cardData = (DynamicType)(cards[i].desc?.type ?? -1) switch
                 {
-                    case DynamicType.Forward:
-                        card.cardData = BiliForwordDynamicData.Get(cardJson);
-                        break;
-                    case DynamicType.H5:
-                        card.cardData = BiliH5DynamicData.Get(cardJson);
-                        break;
-                    default:
-                        card.cardData = JsonNode.Parse(cardJson);
-                        break;
-                }
+                    DynamicType.Forward => BiliForwordDynamicData.Get(cardJson),
+                    DynamicType.H5 => BiliH5DynamicData.Get(cardJson),
+                    DynamicType.Video => BiliVideoDynamicData.Get(cardJson),
+                    _ => null,
+                };
             }
         }
     }

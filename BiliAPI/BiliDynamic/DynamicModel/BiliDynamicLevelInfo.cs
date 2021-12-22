@@ -1,4 +1,4 @@
-﻿namespace BiliAPI.BiliDynamic.DynamicEntity
+﻿namespace BiliAPI.BiliDynamic.DynamicModel
 {
     public struct BiliDynamicLevelInfo
     {

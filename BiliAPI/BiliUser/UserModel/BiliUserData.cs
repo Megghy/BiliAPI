@@ -1,8 +1,9 @@
-﻿using BiliAPI.BiliSharedEntity;
+﻿using BiliAPI.BiliInfo;
+using BiliAPI.BiliSharedEntity;
 
 namespace BiliAPI.BiliUser.UserModel
 {
-    public struct BiliUserData
+    public struct BiliUserData : IBiliData
     {
         public int mid { get; set; }
         public string name { get; set; }

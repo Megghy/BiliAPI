@@ -1,6 +1,8 @@
-﻿namespace BiliAPI.BiliVideo.VideoModel
+﻿using BiliAPI.BiliInfo;
+
+namespace BiliAPI.BiliVideo.VideoModel
 {
-    public struct BiliVideoData
+    public struct BiliVideoData : IBiliData
     {
         public BiliVideoList? list { get; set; }
         public BiliVideoPage? page { get; set; }

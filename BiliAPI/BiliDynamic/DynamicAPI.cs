@@ -1,5 +1,5 @@
 ﻿using BiliAPI.BiliDynamic.DynamicModel;
-using BiliAPI.BiliSharedEntity;
+using BiliAPI.BiliInfo;
 
 namespace BiliAPI.BiliDynamic
 {
@@ -15,7 +15,7 @@ namespace BiliAPI.BiliDynamic
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
-        public static async Task<(bool success, BiliRoot<BiliDynamicData>? cardsData)> GetDynamic(
+        public static async Task<(bool success, BiliDynamicInfo? cardsData)> GetDynamics(
             long uid,
             string pageOffset = "0")
         {
@@ -28,10 +28,9 @@ namespace BiliAPI.BiliDynamic
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
 
-                var result = Utils.Deserialize<BiliRoot<BiliDynamicData>>(response);
+                var result = new BiliDynamicInfo(response);
 
-                result?.data?.SerializeCard();
-                return (true, result);
+                return (result.Root?.code == 0, result);
             }
             catch (Exception ex)
             {
@@ -40,7 +39,7 @@ namespace BiliAPI.BiliDynamic
             }
         }
         /// <summary>
-        /// 从服务器获取指定位置动态数据
+        /// 从服务器获取指定位置动态数据, 默认为最新动态
         /// </summary>
         /// <param name="uid">用户ID</param>
         /// <param name="index">想要获取动态的位置(最大值11), 最新动态则为0</param>
@@ -48,18 +47,32 @@ namespace BiliAPI.BiliDynamic
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
-        public static async Task<(bool success, BiliDynamicCardsItem? cardData)> GetLatestDynamic(
+        public static async Task<(bool success, DynamicType? type, BiliDynamicCardInfo<IBiliDynamicCard>? cardData)> GetDynamic(
             long uid,
             int index = 0,
             string pageOffset = "0")
         {
             if (index is < 0 or > 11)
                 throw new ArgumentOutOfRangeException(nameof(index));
-            (var success, var result) = await GetDynamic(uid, pageOffset);
+            (var success, var result) = await GetDynamics(uid, pageOffset);
             if (success)
-                return (success, result?.data?.cards?[index]);
+                return (success, result?.Cards[index].Type, result?.Cards[index]);
             else
-                return (false, null);
+                return (false, DynamicType.Error, null);
+        }/// <summary>
+         /// 从服务器获取最新一个动态数据
+         /// </summary>
+         /// <param name="uid">用户ID</param>
+         /// <returns>
+         /// 是否成功及动态信息
+         /// </returns>
+        public static async Task<(bool success, DynamicType? type, BiliDynamicCardInfo<IBiliDynamicCard>? cardData)> GetLatestDynamic(long uid)
+        {
+            (var success, var result) = await GetDynamics(uid);
+            if (success)
+                return (success, result?.Cards.FirstOrDefault()?.Type, result?.Cards.FirstOrDefault());
+            else
+                return (false, DynamicType.Error, null);
         }
     }
 }

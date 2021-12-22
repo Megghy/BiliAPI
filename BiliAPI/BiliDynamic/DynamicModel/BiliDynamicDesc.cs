@@ -1,6 +1,4 @@
-﻿using BiliAPI.BiliDynamic.DynamicEntity;
-
-namespace BiliAPI.BiliDynamic.DynamicModel
+﻿namespace BiliAPI.BiliDynamic.DynamicModel
 {
     /// <summary>
     /// 动态相关信息

@@ -1,7 +1,6 @@
-﻿using BiliAPI.BiliDynamic.DynamicModel;
-using BiliAPI.BiliSharedEntity;
+﻿using BiliAPI.BiliSharedEntity;
 
-namespace BiliAPI.BiliDynamic.DynamicEntity
+namespace BiliAPI.BiliDynamic.DynamicModel
 {
     public struct BiliDynamicUserProfile
     {
