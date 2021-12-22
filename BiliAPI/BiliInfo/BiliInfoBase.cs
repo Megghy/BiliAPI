@@ -9,12 +9,12 @@
         public BiliInfoBase(string originJson)
         {
             OriginJson = originJson ?? throw new ArgumentNullException(nameof(originJson));
-            Root = DeserializeData(originJson) ?? new();
+            Root = DeserializeData(originJson);
         }
         /// <summary>
         /// 接收的原始字符串响应
         /// </summary>
-        public string OriginJson { get; set; }
+        public string? OriginJson { get; set; }
         /// <summary>
         /// 反序列化后的原始响应
         /// </summary>

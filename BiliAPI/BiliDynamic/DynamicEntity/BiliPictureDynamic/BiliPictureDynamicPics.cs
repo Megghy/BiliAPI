@@ -1,6 +1,12 @@
-﻿namespace BiliAPI.BiliDynamic.DynamicEntity.BiliForwordDynamic
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BiliAPI.BiliDynamic.DynamicEntity.BiliPictureDynamic
 {
-    public struct BiliPictureItem
+    public struct BiliPictureDynamicPics
     {
         public int? img_height { get; set; }
         public double img_size { get; set; }

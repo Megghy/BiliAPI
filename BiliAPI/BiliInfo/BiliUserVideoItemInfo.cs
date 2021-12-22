@@ -19,23 +19,23 @@ namespace BiliAPI.BiliInfo
         /// <summary>
         /// 标题
         /// </summary>
-        public string Title => Video.title;
+        public string? Title => Video.title;
         /// <summary>
         /// 描述
         /// </summary>
-        public string Description => Video.description;
+        public string? Description => Video.description;
         /// <summary>
         /// 评论数
         /// </summary>
-        public int CommentCount => Video.comment;
+        public int? CommentCount => Video.comment;
         /// <summary>
         /// 弹幕数
         /// </summary>
-        public int DanmakuCount => Video.video_review;
+        public int? DanmakuCount => Video.video_review;
         /// <summary>
         /// 播放次数
         /// </summary>
-        public int PlayCount => Video.play;
+        public int? PlayCount => Video.play;
         #endregion
     }
 }

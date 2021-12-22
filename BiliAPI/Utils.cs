@@ -51,7 +51,7 @@ namespace BiliAPI
                 return default;
             }
         }
-        public static string Serialize(object o, JsonSerializerOptions? option = null)
+        public static string? Serialize(object o, JsonSerializerOptions? option = null)
         {
             if (o == null)
                 throw new ArgumentNullException(nameof(o));

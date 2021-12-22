@@ -2,6 +2,6 @@
 {
     public struct BiliUserGarb
     {
-        public string url_image_ani_cut { get; set; }
+        public string? url_image_ani_cut { get; set; }
     }
 }

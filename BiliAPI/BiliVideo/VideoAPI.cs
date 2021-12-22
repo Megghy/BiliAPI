@@ -4,7 +4,7 @@ namespace BiliAPI.BiliVideo
 {
     public static class VideoAPI
     {
-        public const string API_URL = "http://api.bilibili.com/x/web-interface/view";
+        public const string? VideoURL = "http://api.bilibili.com/x/web-interface/view";
         /// <summary>
         /// 获取指定视频基本信息
         /// </summary>
@@ -13,13 +13,13 @@ namespace BiliAPI.BiliVideo
         /// 是否成功及视频信息
         /// </returns>
         public static async Task<(bool success, BiliVideoInfo? userData)> GetVideoData(
-            string bvid)
+            string? bvid)
         {
             if (bvid == null)
                 throw new NullReferenceException("Invalid bvid");
             try
             {
-                var response = await Utils.RequestStringAsync($"{API_URL}?bvid={bvid}");
+                var response = await Utils.RequestStringAsync($"{VideoURL}?bvid={bvid}");
 
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
@@ -41,13 +41,13 @@ namespace BiliAPI.BiliVideo
         /// 是否成功及视频信息
         /// </returns>
         public static async Task<(bool success, BiliVideoInfo? userData)> GetVideoData(
-            long avid)
+            long? avid)
         {
             if (avid < 0)
                 throw new NullReferenceException("Invalid uid");
             try
             {
-                var response = await Utils.RequestStringAsync($"{API_URL}?aid={avid}");
+                var response = await Utils.RequestStringAsync($"{VideoURL}?aid={avid}");
 
                 if (string.IsNullOrEmpty(response))
                     return (false, null);

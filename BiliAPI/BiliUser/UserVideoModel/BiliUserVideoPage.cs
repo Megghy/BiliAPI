@@ -2,8 +2,8 @@
 {
     public struct BiliUserVideoPage
     {
-        public int pn { get; set; }
-        public int ps { get; set; }
-        public int count { get; set; }
+        public int? pn { get; set; }
+        public int? ps { get; set; }
+        public int? count { get; set; }
     }
 }

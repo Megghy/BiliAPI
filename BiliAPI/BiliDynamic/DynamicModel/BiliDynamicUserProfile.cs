@@ -9,8 +9,8 @@ namespace BiliAPI.BiliDynamic.DynamicModel
         public BiliVip? vip { get; set; }
         public BiliDynamicPendant? pendant { get; set; }
         public BiliDynamicDecorateCard? decorate_card { get; set; }
-        public string rank { get; set; }
-        public string sign { get; set; }
+        public string? rank { get; set; }
+        public string? sign { get; set; }
         public BiliDynamicLevelInfo? level_info { get; set; }
     }
 }

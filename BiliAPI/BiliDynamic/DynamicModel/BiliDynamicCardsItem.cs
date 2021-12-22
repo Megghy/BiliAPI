@@ -22,8 +22,8 @@ namespace BiliAPI.BiliDynamic.DynamicModel
         /// <summary>
         /// 卡片原始内容
         /// </summary>
-        public string card { get; set; }
-        public string extend_json { get; set; }
+        public string? card { get; set; }
+        public string? extend_json { get; set; }
         public BiliDynamicExtra? extra { get; set; }
         public BiliDynamicDisplay? display { get; set; }
     }

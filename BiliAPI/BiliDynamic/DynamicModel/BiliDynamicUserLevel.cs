@@ -2,6 +2,6 @@
 {
     public struct BiliDynamicUserLevel
     {
-        public int current_level { get; set; }
+        public int? current_level { get; set; }
     }
 }

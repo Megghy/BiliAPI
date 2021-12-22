@@ -5,7 +5,7 @@
         /// <summary>
         /// 返回状态码 0: 成功, 412: 速率过快被封禁 ...
         /// </summary>
-        public int code { get; set; }
+        public int? code { get; set; }
         /// <summary>
         /// 错误信息, 成功则为空
         /// </summary>
@@ -13,7 +13,7 @@
         /// <summary>
         /// 1
         /// </summary>
-        public int ttl { get; set; }
+        public int? ttl { get; set; }
         /// <summary>
         /// 数据
         /// </summary>

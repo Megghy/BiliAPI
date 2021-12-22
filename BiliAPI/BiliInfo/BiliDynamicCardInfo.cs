@@ -1,4 +1,6 @@
-﻿using BiliAPI.BiliDynamic.DynamicModel;
+﻿using BiliAPI.BiliDynamic.DynamicEntity;
+using BiliAPI.BiliDynamic.DynamicEntity.BiliTextDynamic;
+using BiliAPI.BiliDynamic.DynamicModel;
 
 namespace BiliAPI.BiliInfo
 {
@@ -21,6 +23,15 @@ namespace BiliAPI.BiliInfo
         /// 卡片类型
         /// </summary>
         public DynamicType Type => Card?.cardType ?? DynamicType.Error;
+        //public BiliUserInfo? Author => Card?.desc?.
+        /// <summary>
+        /// 尝试获取文本格式的内容
+        /// </summary>
+        public string? Content => Card?.cardData switch {
+            BiliTextDynamicCard text => text.item.content,
+            BiliForwordDynamicCard forword => forword.item.description, //todo
+            _ => null
+        };
 
     }
 }

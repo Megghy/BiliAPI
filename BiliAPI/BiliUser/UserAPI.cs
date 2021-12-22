@@ -4,22 +4,23 @@ namespace BiliAPI.BiliUser
 {
     public static class UserAPI
     {
-        public const string API_URL = "https://api.bilibili.com/x/space/acc/info";
+        public const string? UserURL = "https://api.bilibili.com/x/space/acc/info";
+        public const string? UserVideoURL = "https://api.bilibili.com/x/space/arc/search";
         /// <summary>
-        /// 从服务器获取用户数据
+        /// 获取用户数据
         /// </summary>
         /// <param name="uid">用户ID</param>
         /// <returns>
         /// 是否成功及用户信息
         /// </returns>
         public static async Task<(bool success, BiliUserInfo? userData)> GetUserData(
-            long uid)
+            long? uid)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");
             try
             {
-                var response = await Utils.RequestStringAsync($"{API_URL}?mid={uid}");
+                var response = await Utils.RequestStringAsync($"{UserURL}?mid={uid}");
 
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
@@ -34,20 +35,20 @@ namespace BiliAPI.BiliUser
             }
         }
         /// <summary>
-        /// 从服务器获取用户发布的视频
+        /// 获取用户发布的视频
         /// </summary>
         /// <param name="uid">用户ID</param>
         /// <returns>
         /// 是否成功及用户视频信息
         /// </returns>
         public static async Task<(bool success, BiliUserVideoInfo? userData)> GetUserVideoData(
-            long uid)
+            long? uid)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");
             try
             {
-                var response = await Utils.RequestStringAsync($"{API_URL}?mid={uid}");
+                var response = await Utils.RequestStringAsync($"{UserVideoURL}?mid={uid}");
 
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
@@ -69,7 +70,7 @@ namespace BiliAPI.BiliUser
         /// 是否成功及用户视频信息
         /// </returns>
         public static async Task<(bool success, BiliUserVideoItemInfo? userData)> GetUserLatestVideoData(
-            long uid)
+            long? uid)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");

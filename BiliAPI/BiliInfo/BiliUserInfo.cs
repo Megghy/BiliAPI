@@ -14,7 +14,7 @@ namespace BiliAPI.BiliInfo
         /// <summary>
         /// 用户名
         /// </summary>
-        public string Name => Data.name;
+        public string? Name => Data.name;
         /// <summary>
         /// 性别
         /// </summary>
@@ -22,10 +22,10 @@ namespace BiliAPI.BiliInfo
         /// <summary>
         /// 签名
         /// </summary>
-        public string Sign => Data.sign;
+        public string? Sign => Data.sign;
         /// <summary>
         /// 等级
         /// </summary>
-        public int Level => Data.level;
+        public int? Level => Data.level;
     }
 }

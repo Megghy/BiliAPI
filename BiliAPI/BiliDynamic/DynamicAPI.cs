@@ -5,7 +5,7 @@ namespace BiliAPI.BiliDynamic
 {
     public static class DynamicAPI
     {
-        public const string API_URL = "https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history";
+        public const string? DynamicURL = "https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history";
         /// <summary>
         /// 从服务器获取动态数据
         /// </summary>
@@ -16,14 +16,14 @@ namespace BiliAPI.BiliDynamic
         /// 是否成功及动态信息
         /// </returns>
         public static async Task<(bool success, BiliDynamicInfo? cardsData)> GetDynamics(
-            long uid,
-            string pageOffset = "0")
+            long? uid,
+            string? pageOffset = "0")
         {
             if (string.IsNullOrEmpty(pageOffset) || !int.TryParse(pageOffset, out _))
                 throw new NullReferenceException("Invalid pageOffset");
             try
             {
-                var response = await Utils.RequestStringAsync($"{API_URL}?host_uid={uid}&offset_dynamic_id={pageOffset}");
+                var response = await Utils.RequestStringAsync($"{DynamicURL}?host_uid={uid}&offset_dynamic_id={pageOffset}");
 
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
@@ -48,9 +48,9 @@ namespace BiliAPI.BiliDynamic
         /// 是否成功及动态信息
         /// </returns>
         public static async Task<(bool success, DynamicType? type, BiliDynamicCardInfo<IBiliDynamicCard>? cardData)> GetDynamic(
-            long uid,
+            long? uid,
             int index = 0,
-            string pageOffset = "0")
+            string? pageOffset = "0")
         {
             if (index is < 0 or > 11)
                 throw new ArgumentOutOfRangeException(nameof(index));

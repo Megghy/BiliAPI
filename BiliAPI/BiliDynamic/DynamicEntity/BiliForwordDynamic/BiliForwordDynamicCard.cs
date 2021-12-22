@@ -3,12 +3,12 @@ using BiliAPI.BiliDynamic.DynamicModel;
 
 namespace BiliAPI.BiliDynamic.DynamicEntity
 {
-    public struct BiliForwordDynamicData : IBiliDynamicCard
+    public struct BiliForwordDynamicCard : IBiliDynamicCard
     {
         public DynamicType Type => DynamicType.Forward;
-        public static BiliForwordDynamicData? Get(string cardJson)
+        public static BiliForwordDynamicCard? Get(string? cardJson)
         {
-            var result = Utils.Deserialize<BiliForwordDynamicData>(cardJson);
+            var result = Utils.Deserialize<BiliForwordDynamicCard>(cardJson);
             if (!string.IsNullOrEmpty(result.origin))
                 result.originData = Utils.Deserialize<BiliForwordDynamicOriginData>(result.origin);
             return result;
@@ -21,8 +21,8 @@ namespace BiliAPI.BiliDynamic.DynamicEntity
 
         public BiliDynamicUserInfo user { get; set; }
         public BiliForwordDynamicItem item { get; set; }
-        public string origin { get; set; }
-        public string origin_extend_json { get; set; }
+        public string? origin { get; set; }
+        public string? origin_extend_json { get; set; }
         public BiliDynamicUserProfile origin_user { get; set; }
     }
 }
