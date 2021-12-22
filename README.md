@@ -1,7 +1,5 @@
 > 封装了一些不包含账户操作的基础api
 
-直接转换为了实体类, 找东西可能会比较麻烦(
-
 主要是自用, 所以写的比较简单而且用不上的大概不会写
 
 有时间大概会稍微写一下注释
@@ -12,7 +10,7 @@
 
 ```csharp
     (var success, var userData) = await BiliAPI.BiliUser.UserAPI.GetUserData(10021741);
-    var name = userData?.data?.name; //-Megghy
+    var name = userData?.Name; //-Megghy
 ```
 
 <details>
