@@ -1,6 +1,6 @@
-﻿namespace BiliAPI.BiliVideo.VideoModel
+﻿namespace BiliAPI.BiliUser.UserVideoModel
 {
-    public struct BiliVideoPage
+    public struct BiliUserVideoPage
     {
         public int pn { get; set; }
         public int ps { get; set; }

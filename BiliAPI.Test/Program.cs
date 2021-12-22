@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using BiliAPI;
+﻿using BiliAPI;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
@@ -19,7 +18,7 @@ else
 
 Console.WriteLine("动态获取测试");
 (success, var dynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetDynamics(10021741);
-if (success)
+if (success) 
 {
     foreach (var d in dynamicData!.Cards)
     {
@@ -30,10 +29,17 @@ if (success)
 else
     Console.WriteLine("动态信息获取失败");
 
-Console.WriteLine("视频列表获取测试");
-(success, var videosData) = await BiliAPI.BiliVideo.VideoAPI.GetUserVideoData(10021741);
+Console.WriteLine("用户视频列表获取测试");
+(success, var userVideosData) = await BiliAPI.BiliUser.UserAPI.GetUserVideoData(10021741);
 if (success)
-    Console.WriteLine(Utils.Serialize(videosData!, jsonOption));
+    Console.WriteLine(Utils.Serialize(userVideosData!, jsonOption));
+else
+    Console.WriteLine("用户视频列表获取失败");
+
+Console.WriteLine("视频信息获取测试");
+(success, var videoData) = await BiliAPI.BiliVideo.VideoAPI.GetVideoData("BV1fy4y1B7yQ");
+if (success)
+    Console.WriteLine(Utils.Serialize(videoData!, jsonOption));
 else
     Console.WriteLine("视频信息获取失败");
 

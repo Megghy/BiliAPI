@@ -1,4 +1,4 @@
-﻿namespace BiliAPI.BiliVideo.VideoModel
+﻿namespace BiliAPI.BiliUser.UserVideoModel
 {
     public struct BiliEpisodic_button
     {

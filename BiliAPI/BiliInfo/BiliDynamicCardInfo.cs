@@ -3,7 +3,7 @@
 namespace BiliAPI.BiliInfo
 {
     /// <summary>
-    /// 封装一些常用内容
+    /// 封装后的动态卡片
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class BiliDynamicCardInfo<T> where T : IBiliDynamicCard

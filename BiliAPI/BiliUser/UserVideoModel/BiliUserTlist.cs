@@ -1,13 +1,13 @@
 ﻿using BiliAPI.BiliUser.UserModel;
 using System.Text.Json.Serialization;
 
-namespace BiliAPI.BiliVideo.VideoModel
+namespace BiliAPI.BiliUser.UserVideoModel
 {
     /// <summary>
     /// 分区 写的很怪
     /// 待添加
     /// </summary>
-    public struct BiliTlist
+    public struct BiliUserTlist
     {
         [JsonPropertyName("1")]
         public BiliZone? Animation { get; set; }

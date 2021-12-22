@@ -1,5 +1,4 @@
-﻿
-namespace BiliAPI.BiliSharedEntity
+﻿namespace BiliAPI.BiliUser.UserModel
 {
     public struct BiliVip
     {

@@ -1,4 +1,4 @@
-﻿using BiliAPI.BiliSharedEntity;
+﻿using BiliAPI.BiliUser.UserModel;
 
 namespace BiliAPI.BiliDynamic.DynamicModel
 {

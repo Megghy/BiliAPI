@@ -3,7 +3,7 @@
     public class BiliRoot<T> where T : IBiliData
     {
         /// <summary>
-        /// 返回状态码 0: 成功, 412: 速率过快被封禁
+        /// 返回状态码 0: 成功, 412: 速率过快被封禁 ...
         /// </summary>
         public int code { get; set; }
         /// <summary>

@@ -4,22 +4,22 @@ namespace BiliAPI.BiliVideo
 {
     public static class VideoAPI
     {
-        public const string API_URL = "https://api.bilibili.com/x/space/arc/search";
+        public const string API_URL = "http://api.bilibili.com/x/web-interface/view";
         /// <summary>
-        /// 从服务器获取用户发布的视频
+        /// 获取指定视频基本信息
         /// </summary>
-        /// <param name="uid">用户ID</param>
+        /// <param name="bvid">视频bvid</param>
         /// <returns>
-        /// 是否成功及用户视频信息
+        /// 是否成功及视频信息
         /// </returns>
-        public static async Task<(bool success, BiliVideoInfo? userData)> GetUserVideoData(
-            long uid)
+        public static async Task<(bool success, BiliVideoInfo? userData)> GetVideoData(
+            string bvid)
         {
-            if (uid < 0)
-                throw new NullReferenceException("Invalid uid");
+            if (bvid == null)
+                throw new NullReferenceException("Invalid bvid");
             try
             {
-                var response = await Utils.RequestStringAsync($"{API_URL}?mid={uid}");
+                var response = await Utils.RequestStringAsync($"{API_URL}?bvid={bvid}");
 
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
@@ -34,22 +34,32 @@ namespace BiliAPI.BiliVideo
             }
         }
         /// <summary>
-        /// 从服务器获取用户最新发布的视频
+        /// 获取指定视频基本信息
         /// </summary>
-        /// <param name="uid">用户ID</param>
+        /// <param name="avid">视频avid</param>
         /// <returns>
-        /// 是否成功及用户视频信息
+        /// 是否成功及视频信息
         /// </returns>
-        public static async Task<(bool success, BiliVideoItemInfo? userData)> GetUserLatestVideoData(
-            long uid)
+        public static async Task<(bool success, BiliVideoInfo? userData)> GetVideoData(
+            long avid)
         {
-            if (uid < 0)
+            if (avid < 0)
                 throw new NullReferenceException("Invalid uid");
-            (var success, var result) = await GetUserVideoData(uid);
-            if (success)
-                return (success, result?.Videos.FirstOrDefault());
-            else
+            try
+            {
+                var response = await Utils.RequestStringAsync($"{API_URL}?aid={avid}");
+
+                if (string.IsNullOrEmpty(response))
+                    return (false, null);
+
+                var result = new BiliVideoInfo(response);
+                return (result.Root?.code == 0, result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Error] {ex}");
                 return (false, null);
+            }
         }
     }
 }

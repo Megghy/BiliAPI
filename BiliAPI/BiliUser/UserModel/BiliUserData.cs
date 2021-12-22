@@ -1,5 +1,4 @@
 ﻿using BiliAPI.BiliInfo;
-using BiliAPI.BiliSharedEntity;
 
 namespace BiliAPI.BiliUser.UserModel
 {
@@ -32,5 +31,8 @@ namespace BiliAPI.BiliUser.UserModel
         public BiliProfession? profession { get; set; }
         public string[] tags { get; set; }
         public BiliSeries? series { get; set; }
+
+        public bool? is_fake_account { get; set; }
+        public bool? is_deleted { get; set; }
     }
 }

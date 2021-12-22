@@ -1,6 +1,6 @@
-﻿namespace BiliAPI.BiliVideo.VideoModel
+﻿namespace BiliAPI.BiliUser.UserVideoModel
 {
-    public struct BiliVlistItem
+    public struct BiliUserVlistItem
     {
         public int comment { get; set; }
         public int typeid { get; set; }
