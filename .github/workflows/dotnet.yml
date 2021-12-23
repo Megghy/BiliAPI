@@ -1,0 +1,30 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Build
+      run: dotnet pack --configuration Release
+    - name: Install Nuget
+      run: |
+        $sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+        $targetNugetExe = "nuget.exe"
+        Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
+      shell: pwsh
+    - name: Push generated package to GitHub registry
+      run: 
+        .\nuget push .\BiliAPI\bin\release\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{secrets.NUGETKEY}} -NoSymbols 
