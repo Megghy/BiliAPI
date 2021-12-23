@@ -5,19 +5,23 @@ namespace BiliAPI.BiliInfo
     /// <summary>
     /// 封装后的动态页信息
     /// </summary>
-    public class BiliDynamicInfo : BiliInfoBase<BiliDynamicData>
+    public class BiliDynamicsInfo : BiliInfoBase<BiliDynamicData>
     {
 #pragma warning disable CS8618
-        public BiliDynamicInfo(string originJson) : base(originJson)
+        public BiliDynamicsInfo(string originJson) : base(originJson)
 #pragma warning restore CS8618
         {
             if (Root == null)
                 return;
 
             Root?.data.DeserializeCard();
-            Cards = (from card
-                     in Root!.data.cards
-                     select new BiliDynamicCardInfo<IBiliDynamicCard>(card)).ToArray();
+
+            if (Root!.data.cards?.Any() ?? false)
+                Cards = ((from card
+                         in Root!.data.cards
+                         select new BiliDynamicCardInfo<IBiliDynamicCard>(card)) ?? Array.Empty<BiliDynamicCardInfo<IBiliDynamicCard>>()).ToArray();
+            else
+                Cards = Array.Empty<BiliDynamicCardInfo<IBiliDynamicCard>>();
         }
 
         /// <summary>

@@ -14,7 +14,22 @@ namespace BiliAPI.BiliUser
         /// 是否成功及用户信息
         /// </returns>
         public static async Task<(bool success, BiliUserInfo? userData)> GetUserData(
-            long? uid)
+            string uid)
+        {
+            if (long.TryParse(uid, out var _uid))
+                return await GetUserData(_uid);
+            else
+                throw new ArgumentException("Invalid uid");
+        }
+        /// <summary>
+        /// 获取用户数据
+        /// </summary>
+        /// <param name="uid">用户ID</param>
+        /// <returns>
+        /// 是否成功及用户信息
+        /// </returns>
+        public static async Task<(bool success, BiliUserInfo? userData)> GetUserData(
+            long uid)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");
@@ -41,8 +56,8 @@ namespace BiliAPI.BiliUser
         /// <returns>
         /// 是否成功及用户视频信息
         /// </returns>
-        public static async Task<(bool success, BiliUserVideoInfo? userData)> GetUserVideoData(
-            long? uid)
+        public static async Task<(bool success, BiliUserVideosInfo? userData)> GetUserVideoData(
+            long uid)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");
@@ -53,7 +68,7 @@ namespace BiliAPI.BiliUser
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
 
-                var result = new BiliUserVideoInfo(response);
+                var result = new BiliUserVideosInfo(response);
                 return (result.Root?.code == 0, result);
             }
             catch (Exception ex)
@@ -70,7 +85,7 @@ namespace BiliAPI.BiliUser
         /// 是否成功及用户视频信息
         /// </returns>
         public static async Task<(bool success, BiliUserVideoItemInfo? userData)> GetUserLatestVideoData(
-            long? uid)
+            long uid)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");

@@ -15,9 +15,9 @@ namespace BiliAPI.BiliDynamic
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
-        public static async Task<(bool success, BiliDynamicInfo? cardsData)> GetDynamics(
-            long? uid,
-            string? pageOffset = "0")
+        public static async Task<(bool success, BiliDynamicsInfo? cardsData)> GetDynamics(
+            long uid,
+            string pageOffset = "0")
         {
             if (string.IsNullOrEmpty(pageOffset) || !int.TryParse(pageOffset, out _))
                 throw new NullReferenceException("Invalid pageOffset");
@@ -28,7 +28,7 @@ namespace BiliAPI.BiliDynamic
                 if (string.IsNullOrEmpty(response))
                     return (false, null);
 
-                var result = new BiliDynamicInfo(response);
+                var result = new BiliDynamicsInfo(response);
 
                 return (result.Root?.code == 0, result);
             }
@@ -48,9 +48,9 @@ namespace BiliAPI.BiliDynamic
         /// 是否成功及动态信息
         /// </returns>
         public static async Task<(bool success, DynamicType? type, BiliDynamicCardInfo<IBiliDynamicCard>? cardData)> GetDynamic(
-            long? uid,
+            long uid,
             int index = 0,
-            string? pageOffset = "0")
+            string pageOffset = "0")
         {
             if (index is < 0 or > 11)
                 throw new ArgumentOutOfRangeException(nameof(index));

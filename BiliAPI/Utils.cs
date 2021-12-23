@@ -22,6 +22,12 @@ namespace BiliAPI
                     _ => throw new JsonException(),
                 };
         }
+        public static DateTime ToDateTime(this long? unix)
+        {
+            if (unix == null)
+                return DateTime.MinValue;
+            return unix!.ToDateTime();
+        }
         public static DateTime ToDateTime(this long unix)
         {
             var dataTime = new DateTime(1970, 1, 1, 8, 0, 0);
