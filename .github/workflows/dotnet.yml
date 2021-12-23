@@ -25,8 +25,8 @@ jobs:
         nuget-version: '5.x'
     - name: Add private GitHub registry to NuGet
       run: |
-        .\nuget sources add -name github -Source https://nuget.pkg.github.com/Megghy/BiliAPI/index.json -Username Megghy/BiliAPI -Password ${{NUGETKEY}}
+        .\nuget sources add -name github -Source https://nuget.pkg.github.com/Megghy/BiliAPI/index.json -Username Megghy/BiliAPI -Password ${{NugetKey}}
     - name: Push generated package to GitHub registry
       run: |
         .\nuget push .\bin\release\*.nupkg -Source github -SkipDuplicate
-        .\nuget push .\bin\release\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{NUGETKEY}} -NoSymbols 
+        .\nuget push .\bin\release\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{NugetKey}} -NoSymbols 
