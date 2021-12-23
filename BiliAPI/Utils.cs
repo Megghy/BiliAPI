@@ -26,7 +26,7 @@ namespace BiliAPI
         {
             if (unix == null)
                 return DateTime.MinValue;
-            return unix!.ToDateTime();
+            return unix.Value.ToDateTime();
         }
         public static DateTime ToDateTime(this long unix)
         {
