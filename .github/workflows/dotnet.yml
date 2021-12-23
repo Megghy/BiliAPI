@@ -24,5 +24,5 @@ jobs:
         dotnet nuget add source --username Megghy --password ${{secrets.GHKEY}} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Megghy/index.json"
     - name: Push generated package to GitHub registry
       run: |
-        dotnet nuget push .\BiliAPI\bin\release\*.nupkg -s "github" --skip-duplicate -n -k ${{secrets.GHKEY}}
-        dotnet nuget push .\BiliAPI\bin\release\*.nupkg -s https://api.nuget.org/v3/index.json -n true --skip-duplicate -k ${{secrets.NUGETKEY}}
+        dotnet nuget push ./BiliAPI/bin/Release/*.nupkg -s "github" --skip-duplicate -n -k ${{secrets.GHKEY}}
+        dotnet nuget push ./BiliAPI/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -n true --skip-duplicate -k ${{secrets.NUGETKEY}}
