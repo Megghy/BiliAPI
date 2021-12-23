@@ -21,5 +21,5 @@ jobs:
       run: dotnet pack --configuration Release
     - name: Push generated package to GitHub registry
       run: |
-        dotnet nuget push .\BiliAPI\bin\release\*.nupkg -s "github" -SkipDuplicate -n -k ${{secrets.GHKEY}}
+        dotnet nuget push .\BiliAPI\bin\release\*.nupkg -s "github" --skip-duplicate -n -k ${{secrets.GHKEY}}
         dotnet nuget push .\BiliAPI\bin\release\*.nupkg -s https://api.nuget.org/v3/index.json -n true --skip-duplicate -k ${{secrets.NUGETKEY}}
