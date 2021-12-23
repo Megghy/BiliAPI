@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
     - name: Install Nuget
       uses: nuget/setup-nuget@v1
       with:
-        nuget-version: '5.x'
+        nuget-version: '6.x'
     - name: Push generated package to GitHub registry
       run: |
         .\nuget push .\bin\release\*.nupkg -Source github -SkipDuplicate
