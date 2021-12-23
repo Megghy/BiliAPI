@@ -27,4 +27,4 @@ jobs:
       shell: pwsh
     - name: Push generated package to GitHub registry
       run: 
-        .\nuget push .\bin\release\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{secrets.NUGETKEY}} -NoSymbols 
+        .\nuget push .\BiliAPI\bin\release\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{secrets.NUGETKEY}} -NoSymbols 
