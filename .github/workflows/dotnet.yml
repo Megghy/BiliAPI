@@ -26,6 +26,5 @@ jobs:
         Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
       shell: pwsh
     - name: Push generated package to GitHub registry
-      run: |
-        .\nuget push .\bin\release\*.nupkg -Source github -SkipDuplicate
+      run: 
         .\nuget push .\bin\release\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{secrets.NUGETKEY}} -NoSymbols 
