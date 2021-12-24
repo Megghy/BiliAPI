@@ -18,11 +18,14 @@ else
 
 Console.WriteLine("动态获取测试");
 (success, var dynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetDynamics(10021741);
-if (success) 
+if (success)
 {
     foreach (var d in dynamicData!.Cards)
     {
+        if (d is null)
+            continue;
         Console.WriteLine(d.Type);
+        Console.WriteLine($"--- {d.CardContainer?.cardType}");
         Console.WriteLine(Utils.Serialize(d, jsonOption));
     }
 }

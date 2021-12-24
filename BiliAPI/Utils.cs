@@ -22,6 +22,21 @@ namespace BiliAPI
                     _ => throw new JsonException(),
                 };
         }
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+            foreach (T obj in source)
+            {
+                action(obj);
+            }
+        }
         public static DateTime ToDateTime(this long? unix)
         {
             if (unix == null)
@@ -30,6 +45,8 @@ namespace BiliAPI
         }
         public static DateTime ToDateTime(this long unix)
         {
+            if (unix > 10000000000)
+                unix /= 1000; //b站api有些日期加了个000
             var dataTime = new DateTime(1970, 1, 1, 8, 0, 0);
             return dataTime.AddSeconds(unix);
         }
@@ -50,10 +67,13 @@ namespace BiliAPI
             try
             {
                 return JsonSerializer.Deserialize<T>(json, jsonOption);
+                //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[Error] {ex}");
+                Console.WriteLine($"[Error] {ex}\r\n{json}");
+                Console.WriteLine($"------------------------");
+                Console.WriteLine(json.Substring(1806, 100));
                 return default;
             }
         }

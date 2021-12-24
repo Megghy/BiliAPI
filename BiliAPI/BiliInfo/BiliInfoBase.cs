@@ -1,4 +1,6 @@
-﻿namespace BiliAPI.BiliInfo
+﻿using BiliAPI.BiliInterface;
+
+namespace BiliAPI.BiliInfo
 {
     /// <summary>
     /// 封装数据基类
@@ -8,7 +10,9 @@
     {
         public BiliInfoBase(string originJson)
         {
-            OriginJson = originJson ?? throw new ArgumentNullException(nameof(originJson));
+            if (string.IsNullOrEmpty(originJson))
+                return;
+            OriginJson = originJson;
             Root = DeserializeData(originJson);
         }
         /// <summary>

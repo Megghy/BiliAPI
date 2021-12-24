@@ -29,7 +29,7 @@
         public string? pre_dy_id_str { get; set; }
         public string? orig_dy_id_str { get; set; }
         public string? rid_str { get; set; }
-        public BiliDynamicOrigin? origin { get; set; }
+        public BiliDynamicOrigin? origin { get; set; } //只有转发动态才有
         public BiliDynamicPrevious? previous { get; set; }
     }
 }

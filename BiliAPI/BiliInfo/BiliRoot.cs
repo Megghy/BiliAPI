@@ -1,4 +1,6 @@
-﻿namespace BiliAPI.BiliInfo
+﻿using BiliAPI.BiliInterface;
+
+namespace BiliAPI.BiliInfo
 {
     public class BiliRoot<T> where T : IBiliData
     {

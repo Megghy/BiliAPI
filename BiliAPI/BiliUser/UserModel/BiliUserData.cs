@@ -1,9 +1,30 @@
-﻿using BiliAPI.BiliInfo;
+﻿using BiliAPI.BiliDynamic.DynamicModel;
+using BiliAPI.BiliInterface;
 
 namespace BiliAPI.BiliUser.UserModel
 {
-    public struct BiliUserData : IBiliData
+    public record BiliUserData : IBiliData
     {
+#pragma warning disable CS8618
+        public BiliUserData() { }
+        /// <summary>
+        /// 从动态的用户信息转换为空间用户信息, 部分字段不存在
+        /// </summary>
+        /// <param name="dynamicUser"></param>
+        public BiliUserData(BiliDynamicUserProfile? dynamicUser)
+#pragma warning restore CS8618
+        {
+            if (dynamicUser is null)
+                return;
+            pendant = dynamicUser?.pendant;
+            vip = dynamicUser?.info?.vip;
+            mid = dynamicUser?.info?.uid;
+            name = dynamicUser?.info?.uname;
+            face = dynamicUser?.info?.face;
+            face_nft = dynamicUser?.info?.face_nft;
+            rank = int.Parse(dynamicUser?.rank ?? "-1");
+            sign = dynamicUser?.sign;
+        }
         public int? mid { get; set; }
         public string? name { get; set; }
         public string? sex { get; set; }

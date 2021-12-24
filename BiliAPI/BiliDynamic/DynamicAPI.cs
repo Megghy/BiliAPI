@@ -1,5 +1,6 @@
 ﻿using BiliAPI.BiliDynamic.DynamicModel;
 using BiliAPI.BiliInfo;
+using BiliAPI.BiliInterface;
 
 namespace BiliAPI.BiliDynamic
 {
@@ -7,7 +8,7 @@ namespace BiliAPI.BiliDynamic
     {
         public const string? DynamicURL = "https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history";
         /// <summary>
-        /// 从服务器获取动态数据
+        /// 从服务器获取动态数据, 未完成的动态类型将只会提供基本信息
         /// </summary>
         /// <param name="uid">用户ID</param>
         /// <param name="index">想要获取动态的位置(最大值11), 最新动态则为0</param>
@@ -47,7 +48,7 @@ namespace BiliAPI.BiliDynamic
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
-        public static async Task<(bool success, DynamicType? type, BiliDynamicCardInfo<IBiliDynamicCard>? cardData)> GetDynamic(
+        public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetDynamic(
             long uid,
             int index = 0,
             string pageOffset = "0")
@@ -66,7 +67,7 @@ namespace BiliAPI.BiliDynamic
          /// <returns>
          /// 是否成功及动态信息
          /// </returns>
-        public static async Task<(bool success, DynamicType? type, BiliDynamicCardInfo<IBiliDynamicCard>? cardData)> GetLatestDynamic(long uid)
+        public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetLatestDynamic(long uid)
         {
             (var success, var result) = await GetDynamics(uid);
             if (success)

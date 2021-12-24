@@ -1,49 +1,38 @@
-﻿using BiliAPI.BiliDynamic.DynamicEntity;
-using BiliAPI.BiliDynamic.DynamicEntity.BiliAudioDynamic;
-using BiliAPI.BiliDynamic.DynamicEntity.BiliH5Dynamic;
-using BiliAPI.BiliDynamic.DynamicEntity.BiliPictureDynamic;
-using BiliAPI.BiliDynamic.DynamicEntity.BiliTextDynamic;
-using BiliAPI.BiliDynamic.DynamicEntity.BiliVideoDynamic;
-using BiliAPI.BiliInfo;
+﻿using BiliAPI.BiliInterface;
+using System.Reflection;
 
 namespace BiliAPI.BiliDynamic.DynamicModel
 {
     public struct BiliDynamicData : IBiliData
     {
-        /// <summary>
-        /// 是否还有更多动态
-        /// </summary>
-        public bool has_more { get; set; }
-        public BiliDynamicAttentions? attentions { get; set; }
-        public BiliDynamicCardContainer<IBiliDynamicCard>[]? cards { get; set; }
-        public long? next_offset { get; set; }
-        public int? _gt_ { get; set; }
-
-        //private static MethodInfo? deserializer = typeof(Utils).GetMethod("Deserialize");
+        private static Dictionary<DynamicType, MethodInfo>? dynamicDict;
         internal void DeserializeCard()
         {
             if (cards is null)
                 return;
             for (int i = 0; i < cards.Length; i++)
             {
-                var cardJson = cards[i].card;
-                /*if (Condition.dynamicDict.ContainsKey(type))
-                    {
-                        deserializer?.MakeGenericMethod(Condition.dynamicDict[type]);
-                        deserializer?.Invoke(null, new object[] { card.card }) as Condition.dynamicDict[type];
-                    }
-                        card.cardData(Utils.Deserialize<>());*/
-                cards[i].cardData = (DynamicType)(cards[i].desc?.type ?? -1) switch
-                {
-                    DynamicType.Forward => BiliForwordDynamicCard.Get(cardJson),
-                    DynamicType.H5 => BiliH5DynamicCard.Get(cardJson),
-                    DynamicType.Video => BiliVideoDynamicCard.Get(cardJson),
-                    DynamicType.Text => BiliTextDynamicCard.Get(cardJson),
-                    DynamicType.Picture => BiliPictureDynamicCard.Get(cardJson),
-                    DynamicType.Audio => BiliAudioDynamicCard.Get(cardJson),
-                    _ => null,
-                };
+                cards[i].cardData = Get((DynamicType)(cards[i].desc?.type ?? -1), cards[i].card);
             }
         }
+        internal static IBiliDynamicCard? Get(DynamicType? dynamicType, string? cardJson)
+        {
+            if (dynamicType is null)
+                throw new ArgumentNullException(nameof(dynamicType));
+            dynamicDict ??= Assembly
+                    .GetExecutingAssembly()
+                    .GetTypes()
+                    .Where(t => t.GetCustomAttribute<BiliDynamicCardAttribute>() != null)
+                    .ToDictionary(t => t.GetCustomAttribute<BiliDynamicCardAttribute>()!.TargetType, t => t.GetMethod("Get", BindingFlags.Static | BindingFlags.Public)!);
+            if (dynamicDict.TryGetValue(dynamicType!.Value, out var method))
+                return method.Invoke(null, new object[] { cardJson! }) as IBiliDynamicCard;
+            return null;
+        }
+
+        public bool has_more { get; set; }
+        public BiliDynamicAttentions? attentions { get; set; }
+        public BiliDynamicCardContainer[]? cards { get; set; }
+        public long? next_offset { get; set; }
+        public int? _gt_ { get; set; }
     }
 }

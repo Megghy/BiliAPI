@@ -1,4 +1,4 @@
-﻿using BiliAPI.BiliInfo;
+﻿using BiliAPI.BiliInterface;
 using BiliAPI.BiliUser.UserModel;
 
 namespace BiliAPI.BiliVideo.VideoModel

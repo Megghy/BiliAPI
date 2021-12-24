@@ -1,4 +1,5 @@
-﻿using BiliAPI.BiliUser.UserModel;
+﻿using BiliAPI.BiliDynamic.DynamicModel;
+using BiliAPI.BiliUser.UserModel;
 
 namespace BiliAPI.BiliInfo
 {
@@ -10,7 +11,10 @@ namespace BiliAPI.BiliInfo
         public BiliUserInfo(string originJson) : base(originJson)
         {
         }
-
+        public BiliUserInfo(BiliDynamicUserProfile? data) : base(null)
+        {
+            Root = new() { code = 0, ttl = 1, data = new(data) };
+        }
         #region 基础信息
         /// <summary>
         /// 用户mid
@@ -42,7 +46,7 @@ namespace BiliAPI.BiliInfo
         public int Level => Data.level ?? -1;
 
 
-        public string AvatarURL=> Data.face ?? "null";
+        public string AvatarURL => Data.face ?? "null";
 
         /// <summary>
         /// 标签
@@ -91,12 +95,7 @@ namespace BiliAPI.BiliInfo
         /// <summary>
         /// 大会员过期时间
         /// </summary>
-        public DateTime VIPDueDate => Data.vip?.due_date?.ToString() is { } unixText 
-            && unixText.Length > 10 
-            ? long.TryParse(unixText[..10], out var unix)
-            ? unix.ToDateTime()
-            : DateTime.MinValue
-            : Data.vip?.due_date.ToDateTime() ?? DateTime.MinValue;
+        public DateTime VIPDueDate => Data.vip?.due_date.ToDateTime() ?? DateTime.MinValue;
 
         /// <summary>
         /// 是否是大会员
@@ -158,7 +157,7 @@ namespace BiliAPI.BiliInfo
         /// <summary>
         /// 是否在佩戴粉丝勋章
         /// </summary>
-        public bool IsWearingBadge => Data.fans_medal?.wear ?? false; 
+        public bool IsWearingBadge => Data.fans_medal?.wear ?? false;
 
         /// <summary>
         /// 是否点亮粉丝勋章

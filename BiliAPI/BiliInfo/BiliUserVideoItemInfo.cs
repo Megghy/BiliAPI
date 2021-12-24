@@ -40,7 +40,7 @@ namespace BiliAPI.BiliInfo
         /// 时长
         /// </summary>
         public TimeSpan Length => (Video.length?.Contains(':') ?? false)
-            && Video.length?.Split(':').Select(s => int.Parse(s)).ToArray() is { } tempLength 
+            && Video.length?.Split(':').Select(s => int.Parse(s)).ToArray() is { } tempLength
             ? new TimeSpan(0, tempLength[0], tempLength[1])
             : TimeSpan.MinValue;
 
