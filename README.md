@@ -1,3 +1,4 @@
+![Nuget](https://img.shields.io/nuget/v/BiliAPI?style=flat-square)  ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Megghy/BiliAPI/.NET?style=flat-square)
 > 封装了一些不包含账户操作的基础api.
 > 封装未全部完成, API实体类已完成
 
