@@ -15,7 +15,7 @@
 ```
 
 <details>
-    <summary>目前支持的API</summary>
+    <summary>目前支持的API和部分封装好的信息</summary>
 
     动态(转发动态, 视频动态, H5动态, 文字动态, 专栏动态, 图片动态, 音频动态
     
