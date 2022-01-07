@@ -12,7 +12,7 @@ namespace BiliAPI.BiliDynamic.DynamicCard
         {
             var result = Utils.Deserialize<BiliForwordDynamicCard>(cardJson);
             if (!string.IsNullOrEmpty(result.origin))
-                result.originData = BiliDynamicData.Get(result.item?.orig_type, result.origin);
+                result.originData = BiliUserDynamicsData.Get(result.item?.orig_type, result.origin);
             return result;
         }
 

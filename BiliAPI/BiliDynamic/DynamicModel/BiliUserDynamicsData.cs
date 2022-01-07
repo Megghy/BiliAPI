@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace BiliAPI.BiliDynamic.DynamicModel
 {
-    public struct BiliDynamicData : IBiliData
+    public struct BiliUserDynamicsData : IBiliData
     {
         private static Dictionary<DynamicType, MethodInfo>? dynamicDict;
         internal void DeserializeCard()

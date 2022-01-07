@@ -6,7 +6,7 @@ namespace BiliAPI.BiliDynamic.DynamicModel
     /// <summary>
     /// 动态卡片详细内容的容器
     /// </summary>
-    public struct BiliDynamicCardContainer
+    public struct BiliDynamicCardContainer : IBiliData
     {
         /// <summary>
         /// card内的动态详细内容, 具体类型根据desc的type区分

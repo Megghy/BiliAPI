@@ -6,13 +6,13 @@ using System.Reflection;
 namespace BiliAPI.BiliInfo
 {
     /// <summary>
-    /// 封装后的动态页信息
+    /// 封装后的用户动态页信息
     /// </summary>
-    public class BiliDynamicsInfo : BiliInfoBase<BiliDynamicData>
+    public class BiliUserDynamicsInfo : BiliInfoBase<BiliUserDynamicsData>
     {
 #pragma warning disable CS8618
         private static Dictionary<DynamicType, Type> dynamicCardDict;
-        public BiliDynamicsInfo(string originJson) : base(originJson)
+        public BiliUserDynamicsInfo(string originJson) : base(originJson)
 #pragma warning restore CS8618
         {
             if (Root == null)
@@ -28,7 +28,7 @@ namespace BiliAPI.BiliInfo
                 Cards = Array.Empty<BiliDynamicCardInfoBase<IBiliDynamicCard>>();
         }
 
-        private static IBiliDynamicCardInfo? Get(BiliDynamicCardContainer card)
+        internal static IBiliDynamicCardInfo? Get(BiliDynamicCardContainer card)
         {
             if (card.cardType is null)
                 throw new ArgumentNullException(nameof(card.cardType));

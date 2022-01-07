@@ -17,7 +17,7 @@ else
     Console.WriteLine("用户信息获取失败");
 
 Console.WriteLine("动态获取测试");
-(success, var dynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetDynamics(10021741);
+(success, var dynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetDynamics(434334701);
 if (success)
 {
     foreach (var d in dynamicData!.Cards)

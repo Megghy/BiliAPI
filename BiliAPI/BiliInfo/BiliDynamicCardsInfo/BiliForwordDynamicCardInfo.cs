@@ -18,13 +18,13 @@ namespace BiliAPI.BiliInfo.BiliDynamicCardsInfo
         /// <summary>
         /// 原动态的内容
         /// </summary>
-        public IBiliDynamicCard? OriginData => Card.originData;
+        public IBiliDynamicCard? OriginCard => Card.originData;
 
         /// <summary>
         /// 原动态类型
         /// </summary>
 
-        public DynamicType? OriginDataType => Card.originData?.Type;
+        public DynamicType? OriginCardType => Card.originData?.Type;
 
         /// <summary>
         /// 原动态作者信息

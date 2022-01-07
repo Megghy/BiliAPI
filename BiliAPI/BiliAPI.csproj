@@ -9,10 +9,10 @@
     <Description>简单封装的B站常用API</Description>
     <PackageProjectUrl>https://github.com/Megghy/BiliAPI</PackageProjectUrl>
     <PackageTags>bilibili;bilibili-api;api;哔哩哔哩;b站;b站api</PackageTags>
-    <AssemblyVersion>1.0.3</AssemblyVersion>
-    <FileVersion>1.0.3</FileVersion>
+    <AssemblyVersion>1.0.4</AssemblyVersion>
+    <FileVersion>1.0.4</FileVersion>
     <RepositoryUrl>https://github.com/Megghy/BiliAPI</RepositoryUrl>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>

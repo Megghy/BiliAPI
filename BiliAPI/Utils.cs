@@ -67,13 +67,10 @@ namespace BiliAPI
             try
             {
                 return JsonSerializer.Deserialize<T>(json, jsonOption);
-                //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                Console.WriteLine($"[Error] {ex}\r\n{json}");
-                Console.WriteLine($"------------------------");
-                Console.WriteLine(json.Substring(1806, 100));
+                Console.WriteLine($"[Error] {ex}");
                 return default;
             }
         }
