@@ -31,6 +31,14 @@ if (success)
 }
 else
     Console.WriteLine("动态信息获取失败");
+(success, var dynamicType, var singleDynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetSingleDynamic(619601671568361450);
+if (success)
+{
+    Console.WriteLine(dynamicType);
+    Console.WriteLine(Utils.Serialize(singleDynamicData!, jsonOption));
+}
+else
+    Console.WriteLine("动态信息获取失败");
 
 Console.WriteLine("用户视频列表获取测试");
 (success, var userVideosData) = await BiliAPI.BiliUser.UserAPI.GetUserVideoData(10021741);

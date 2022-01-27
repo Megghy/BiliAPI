@@ -78,13 +78,13 @@ namespace BiliAPI.BiliDynamic
                 return (false, DynamicType.Error, null);
         }
         /// <summary>
-        /// 从服务器获取指定动态数据
+        /// 获取指定动态数据
         /// </summary>
         /// <param name="dynamicID">动态ID</param>
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
-        public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetUserDynamic(
+        public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetSingleDynamic(
             long dynamicID)
         {
             if (dynamicID < 0)
