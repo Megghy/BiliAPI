@@ -32,6 +32,9 @@ namespace BiliAPI.BiliInfo
         /// </summary>
         /// <param name="json">指定json</param>
         /// <returns>反序列化后的数据</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotSupportedException"></exception>
+        /// <exception cref="JsonException"></exception>
         public virtual BiliRoot<T>? DeserializeData(string json)
         {
             return Utils.Deserialize<BiliRoot<T>>(json);

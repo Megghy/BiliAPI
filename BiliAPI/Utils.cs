@@ -60,19 +60,18 @@ namespace BiliAPI
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
             Converters = { new BoolConverter() }
         };
+        /// <summary>
+        /// 反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static T? Deserialize<T>(string? json)
         {
             if (json == null)
                 throw new ArgumentNullException(nameof(json));
-            try
-            {
-                return JsonSerializer.Deserialize<T>(json, jsonOption);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"[Error] {ex}");
-                return default;
-            }
+            return JsonSerializer.Deserialize<T>(json, jsonOption);
         }
         public static string? Serialize(object o, JsonSerializerOptions? option = null)
         {
@@ -86,17 +85,9 @@ namespace BiliAPI
         {
             if (url == null)
                 throw new ArgumentNullException(nameof(url));
-            try
-            {
-                var uri = new Uri(url);
-                var request = new HttpRequestMessage(HttpMethod.Get, uri);
-                return await httpClient.SendAsync(request);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[Error] {ex}");
-                return null;
-            }
+            var uri = new Uri(url);
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            return await httpClient.SendAsync(request);
         }
         public static async Task<string?> RequestStringAsync(string url, params KeyValuePair<string, string>[] param)
         {

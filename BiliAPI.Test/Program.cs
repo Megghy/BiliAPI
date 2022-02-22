@@ -38,7 +38,7 @@ if (success)
     Console.WriteLine(Utils.Serialize(singleDynamicData!, jsonOption));
 }
 else
-    Console.WriteLine("动态信息获取失败");
+    Console.WriteLine("单条动态信息获取失败");
 
 Console.WriteLine("用户视频列表获取测试");
 (success, var userVideosData) = await BiliAPI.BiliUser.UserAPI.GetUserVideoData(10021741);

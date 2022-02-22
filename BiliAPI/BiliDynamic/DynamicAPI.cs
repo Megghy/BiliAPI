@@ -17,28 +17,23 @@ namespace BiliAPI.BiliDynamic
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotSupportedException"></exception>
+        /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, BiliUserDynamicsInfo? cardsData)> GetDynamics(
             long uid,
             string pageOffset = "0")
         {
             if (string.IsNullOrEmpty(pageOffset) || !int.TryParse(pageOffset, out _))
                 throw new NullReferenceException("Invalid pageOffset");
-            try
-            {
-                var response = await Utils.RequestStringAsync($"{UserDynamicURL}?host_uid={uid}&offset_dynamic_id={pageOffset}");
+            var response = await Utils.RequestStringAsync($"{UserDynamicURL}?host_uid={uid}&offset_dynamic_id={pageOffset}");
 
-                if (string.IsNullOrEmpty(response))
-                    return (false, null);
-
-                var result = new BiliUserDynamicsInfo(response);
-
-                return (result.Root?.code == 0, result);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[Error] {ex}");
+            if (string.IsNullOrEmpty(response))
                 return (false, null);
-            }
+
+            var result = new BiliUserDynamicsInfo(response);
+
+            return (result.Root?.code == 0, result);
         }
         /// <summary>
         /// 从服务器获取指定位置动态数据, 默认为最新动态
@@ -49,6 +44,9 @@ namespace BiliAPI.BiliDynamic
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotSupportedException"></exception>
+        /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetUserDynamic(
             long uid,
             int index = 0,
@@ -69,6 +67,9 @@ namespace BiliAPI.BiliDynamic
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotSupportedException"></exception>
+        /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetUserLatestDynamic(long uid)
         {
             (var success, var result) = await GetDynamics(uid);
@@ -84,30 +85,25 @@ namespace BiliAPI.BiliDynamic
         /// <returns>
         /// 是否成功及动态信息
         /// </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotSupportedException"></exception>
+        /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetSingleDynamic(
             long dynamicID)
         {
             if (dynamicID < 0)
                 throw new ArgumentOutOfRangeException(nameof(dynamicID));
-            try
-            {
-                var response = await Utils.RequestStringAsync($"{dynamicID}?dynamic_id={dynamicID}");
+            var response = await Utils.RequestStringAsync($"{DynamicURL}?dynamic_id={dynamicID}");
 
-                if (string.IsNullOrEmpty(response))
-                    return (false, DynamicType.Error, null);
-
-                var root = Utils.Deserialize<BiliRoot<BiliDynamicCardContainer>>(response);
-                if (root?.code != 0)
-                    return (false, DynamicType.Error, null);
-
-                var result = BiliUserDynamicsInfo.Get(root!.data);
-                return (true, result!.Type, result);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[Error] {ex}");
+            if (string.IsNullOrEmpty(response))
                 return (false, DynamicType.Error, null);
-            }
+
+            var root = Utils.Deserialize<BiliRoot<BiliDynamicCardContainer>>(response);
+            if (root?.code != 0)
+                return (false, DynamicType.Error, null);
+
+            var result = BiliUserDynamicsInfo.Get(root!.data);
+            return (true, result!.Type, result);
         }
     }
 }
