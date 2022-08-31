@@ -2,7 +2,7 @@
 {
     public struct BiliDynamicDecorateCard
     {
-        public int? mid { get; set; }
+        public long? mid { get; set; }
         public int? id { get; set; }
         public string? card_url { get; set; }
         public int? card_type { get; set; }

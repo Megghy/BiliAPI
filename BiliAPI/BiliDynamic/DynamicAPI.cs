@@ -98,11 +98,11 @@ namespace BiliAPI.BiliDynamic
             if (string.IsNullOrEmpty(response))
                 return (false, DynamicType.Error, null);
 
-            var root = Utils.Deserialize<BiliRoot<BiliDynamicCardContainer>>(response);
+            var root = Utils.Deserialize<BiliRoot<BiliDynamicCardRoot>>(response);
             if (root?.code != 0)
                 return (false, DynamicType.Error, null);
 
-            var result = BiliUserDynamicsInfo.Get(root!.data);
+            var result = BiliUserDynamicsInfo.Get(root!.data!.card);
             return (true, result!.Type, result);
         }
     }

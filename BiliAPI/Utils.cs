@@ -50,10 +50,7 @@ namespace BiliAPI
             var dataTime = new DateTime(1970, 1, 1, 8, 0, 0);
             return dataTime.AddSeconds(unix);
         }
-        public static readonly HttpClient httpClient = new()
-        {
-            Timeout = new(0, 0, 30)
-        };
+        public static readonly HttpClient httpClient = new();
         public static readonly JsonSerializerOptions jsonOption = new()
         {
             PropertyNameCaseInsensitive = true,

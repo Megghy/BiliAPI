@@ -35,6 +35,6 @@ namespace BiliAPI.BiliInfo.BiliDynamicCardsInfo
         /// <summary>
         /// 图片数量
         /// </summary>
-        public int PictureCount => Card.item?.pictures_count ?? -1;
+        public int PictureCount => (int)(Card.item?.pictures_count ?? -1);
     }
 }

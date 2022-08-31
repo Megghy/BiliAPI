@@ -25,7 +25,7 @@ namespace BiliAPI.BiliUser.UserModel
             rank = int.Parse(dynamicUser?.rank ?? "-1");
             sign = dynamicUser?.sign;
         }
-        public int? mid { get; set; }
+        public long? mid { get; set; }
         public string? name { get; set; }
         public string? sex { get; set; }
         public string? face { get; set; }

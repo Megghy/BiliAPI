@@ -2,7 +2,7 @@
 {
     public struct BiliDynamicPrevious
     {
-        public int? uid { get; set; }
+        public long? uid { get; set; }
         public int? type { get; set; }
         public long? rid { get; set; }
         public int? acl { get; set; }

@@ -2,9 +2,9 @@
 {
     public struct BiliPictureDynamicPicTag
     {
-        public int? item_id { get; set; }
+        public long? item_id { get; set; }
         public string? jump_url { get; set; }
-        public int? mid { get; set; }
+        public long? mid { get; set; }
         public int? orientation { get; set; }
         public string? poi { get; set; }
         public string? schema_url { get; set; }

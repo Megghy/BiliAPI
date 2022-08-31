@@ -12,7 +12,7 @@
         public string? title { get; set; }
         public int? review { get; set; }
         public string? author { get; set; }
-        public int? mid { get; set; }
+        public long? mid { get; set; }
         public long? created { get; set; }
         public string? length { get; set; }
         public int? video_review { get; set; }

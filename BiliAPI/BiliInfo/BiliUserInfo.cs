@@ -15,11 +15,12 @@ namespace BiliAPI.BiliInfo
         {
             Root = new() { code = 0, ttl = 1, data = new(data) };
         }
+
         #region 基础信息
         /// <summary>
         /// 用户mid
         /// </summary>
-        public int ID => Data.mid ?? -1;
+        public long ID => Data.mid ?? -1;
         /// <summary>
         /// 用户名
         /// </summary>

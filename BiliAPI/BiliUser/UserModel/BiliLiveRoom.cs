@@ -14,7 +14,7 @@
         public string? title { get; set; }
         public string? cover { get; set; }
         public int? online { get; set; }
-        public int? roomid { get; set; }
+        public long? roomid { get; set; }
         /// <summary>
         /// 轮播状态
         /// </summary>
