@@ -84,11 +84,13 @@ namespace BiliAPI
                 throw new ArgumentNullException(nameof(url));
             var uri = new Uri(url);
             var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            request.Headers.Add("User-Agent", Settings.User_Agent);
+            request.Headers.Add("cookie", Settings.Cookie);
             return await httpClient.SendAsync(request);
         }
-        public static async Task<string?> RequestStringAsync(string url, params KeyValuePair<string, string>[] param)
+        public static async Task<string?> RequestStringAsync(string url)
         {
-            return await (await httpClient.GetAsync(url)).Content.ReadAsStringAsync();
+            return await (await RequestAsync(url))?.Content?.ReadAsStringAsync();
         }
         public static string? RequestString(string url) => RequestStringAsync(url).Result;
     }

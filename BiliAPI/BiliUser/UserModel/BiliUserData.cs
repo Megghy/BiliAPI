@@ -36,7 +36,7 @@ namespace BiliAPI.BiliUser.UserModel
         public int? jointime { get; set; }
         public int? moral { get; set; }
         public int? silence { get; set; }
-        public int? coins { get; set; }
+        public decimal? coins { get; set; }
         public bool fans_badge { get; set; }
         public BiliMedalInfo? fans_medal { get; set; }
         public BiliOfficialVerify? official { get; set; }
