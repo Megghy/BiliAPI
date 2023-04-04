@@ -1,7 +1,7 @@
-﻿using BiliAPI.BiliDynamic.DynamicModel;
+﻿using System.Reflection;
+using BiliAPI.BiliDynamic.DynamicModel;
 using BiliAPI.BiliInfo.BiliDynamicCardsInfo;
 using BiliAPI.BiliInterface;
-using System.Reflection;
 
 namespace BiliAPI.BiliInfo
 {

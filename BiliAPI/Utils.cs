@@ -68,13 +68,13 @@ namespace BiliAPI
         {
             if (json == null)
                 throw new ArgumentNullException(nameof(json));
-            return JsonSerializer.Deserialize<T>(json, jsonOption);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
         }
         public static string? Serialize(object o, JsonSerializerOptions? option = null)
         {
             if (o == null)
                 throw new ArgumentNullException(nameof(o));
-            return JsonSerializer.Serialize(o, option ?? jsonOption);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(o);
         }
 
         public static HttpResponseMessage? Request(string url) => RequestAsync(url).Result;

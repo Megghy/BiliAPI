@@ -1,7 +1,7 @@
-﻿using BiliAPI.BiliDynamic.DynamicModel;
+﻿using System.Text.Json.Serialization;
+using BiliAPI.BiliDynamic.DynamicModel;
 using BiliAPI.BiliInterface;
 using BiliAPI.BiliUser.UserModel;
-using System.Text.Json.Serialization;
 
 namespace BiliAPI.BiliDynamic.DynamicCard.BiliColumnDynamic
 {

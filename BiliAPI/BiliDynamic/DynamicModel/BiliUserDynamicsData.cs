@@ -1,5 +1,5 @@
-﻿using BiliAPI.BiliInterface;
-using System.Reflection;
+﻿using System.Reflection;
+using BiliAPI.BiliInterface;
 
 namespace BiliAPI.BiliDynamic.DynamicModel
 {

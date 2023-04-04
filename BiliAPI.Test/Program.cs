@@ -9,15 +9,30 @@ JsonSerializerOptions jsonOption = new()
     Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
     WriteIndented = true,
 };
+Console.WriteLine("动态V2获取测试");
+(var success, var dynamicV2Data) = await BiliAPI.BiliDynamicV2.DynamicV2API.GetDynamics(10021741);
+if (success)
+{
+    foreach (var d in dynamicV2Data!.Data.items)
+    {
+        if (d is null)
+            continue;
+        Console.WriteLine(d.type);
+        Console.WriteLine($"--- {d.modules.module_dynamic.major?.type}");
+        Console.WriteLine(Utils.Serialize(d, jsonOption));
+    }
+}
+else
+    Console.WriteLine("动态信息获取失败");
 Console.WriteLine("用户信息获取测试");
-(var success, var userData) = await BiliAPI.BiliUser.UserAPI.GetUserData(10021741);
+(success, var userData) = await BiliAPI.BiliUser.UserAPI.GetUserData(10021741);
 if (success)
     Console.WriteLine(Utils.Serialize(userData!, jsonOption));
 else
     Console.WriteLine("用户信息获取失败");
 
 Console.WriteLine("动态获取测试");
-(success, var dynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetDynamics(15987952);
+(success, var dynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetDynamics(3493124712172018);
 if (success)
 {
     foreach (var d in dynamicData!.Cards)

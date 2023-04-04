@@ -1,5 +1,5 @@
-﻿using BiliAPI.BiliInterface;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using BiliAPI.BiliInterface;
 
 namespace BiliAPI.BiliDynamic.DynamicModel
 {

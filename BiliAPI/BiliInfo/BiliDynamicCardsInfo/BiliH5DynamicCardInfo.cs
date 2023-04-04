@@ -11,5 +11,5 @@ namespace BiliAPI.BiliInfo.BiliDynamicCardsInfo
         {
         }
         public override string Content => Card.vest.content ?? "null";
-}
+    }
 }

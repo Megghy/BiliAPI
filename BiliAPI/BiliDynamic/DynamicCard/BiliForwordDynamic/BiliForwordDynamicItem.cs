@@ -5,7 +5,7 @@ namespace BiliAPI.BiliDynamic.DynamicCard.BiliForwordDynamic
     public struct BiliForwordDynamicItem
     {
         public long? rp_id { get; set; }
-        public int uid { get; set; }
+        public long uid { get; set; }
         public string? content { get; set; }
         public string? ctrl { get; set; }
         public long? orig_dy_id { get; set; }

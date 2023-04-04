@@ -2,8 +2,8 @@
 {
     public struct BiliMedal
     {
-        public int? uid { get; set; }
-        public int? target_id { get; set; }
+        public long? uid { get; set; }
+        public long? target_id { get; set; }
         public int? medal_id { get; set; }
         public int? level { get; set; }
         public string? medal_name { get; set; }

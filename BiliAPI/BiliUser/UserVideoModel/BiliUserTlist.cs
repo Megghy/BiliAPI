@@ -1,5 +1,5 @@
-﻿using BiliAPI.BiliUser.UserModel;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using BiliAPI.BiliUser.UserModel;
 
 namespace BiliAPI.BiliUser.UserVideoModel
 {
