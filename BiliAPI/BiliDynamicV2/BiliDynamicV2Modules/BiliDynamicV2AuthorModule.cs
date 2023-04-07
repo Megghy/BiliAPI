@@ -13,7 +13,7 @@ namespace BiliAPI.BiliDynamicV2.BiliDynamicV2Modules
         public string? following { get; set; }
         public string jump_url { get; set; }
         public string label { get; set; }
-        public int mid { get; set; }
+        public long mid { get; set; }
         public string name { get; set; }
         public BiliOfficialVerify official_verify { get; set; }
         public BiliPendant pendant { get; set; }

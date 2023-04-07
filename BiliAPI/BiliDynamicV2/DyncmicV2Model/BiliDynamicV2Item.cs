@@ -8,8 +8,8 @@ namespace BiliAPI.BiliDynamicV2.DyncmicV2Model
         public BiliDynamicV2Basic basic { get; set; }
         public string id_str { get; set; }
         public BiliDynamicV2Module modules { get; set; }
-        public BiliDynamicV2Module? orig { get; set; }
+        public BiliDynamicV2Item? orig { get; set; }
         public BiliDynamicV2Types type { get; set; }
-        public string visible { get; set; }
+        public bool visible { get; set; }
     }
 }
