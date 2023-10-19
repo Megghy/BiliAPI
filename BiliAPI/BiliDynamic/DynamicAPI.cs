@@ -22,11 +22,12 @@ namespace BiliAPI.BiliDynamic
         /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, BiliUserDynamicsInfo? cardsData)> GetDynamics(
             long uid,
-            string pageOffset = "0")
+            int pageOffset = 0,
+            HttpClient? client = null)
         {
-            if (string.IsNullOrEmpty(pageOffset) || !int.TryParse(pageOffset, out _))
-                throw new NullReferenceException("Invalid pageOffset");
-            var response = await Utils.RequestStringAsync($"{UserDynamicURL}?host_uid={uid}&offset_dynamic_id={pageOffset}");
+            if (pageOffset < 0)
+                throw new ArgumentOutOfRangeException(nameof(pageOffset));
+            var response = await Utils.RequestStringAsync($"{UserDynamicURL}?host_uid={uid}&offset_dynamic_id={pageOffset}", null, client);
 
             if (string.IsNullOrEmpty(response))
                 return (false, null);
@@ -50,11 +51,12 @@ namespace BiliAPI.BiliDynamic
         public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetUserDynamic(
             long uid,
             int index = 0,
-            string pageOffset = "0")
+            int pageOffset = 0,
+            HttpClient? client = null)
         {
             if (index is < 0 or > 11)
                 throw new ArgumentOutOfRangeException(nameof(index));
-            (var success, var result) = await GetDynamics(uid, pageOffset);
+            (var success, var result) = await GetDynamics(uid, pageOffset, client);
             if (success)
                 return (success, result?.Cards[index].Type, result?.Cards[index]);
             else
@@ -70,9 +72,10 @@ namespace BiliAPI.BiliDynamic
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="JsonException"></exception>
-        public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetUserLatestDynamic(long uid)
+        public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetUserLatestDynamic(long uid,
+            HttpClient? client = null)
         {
-            (var success, var result) = await GetDynamics(uid);
+            (var success, var result) = await GetDynamics(uid, 0, client);
             if (success)
                 return (success, result?.Cards.FirstOrDefault()?.Type, result?.Cards.FirstOrDefault());
             else
@@ -89,11 +92,12 @@ namespace BiliAPI.BiliDynamic
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, DynamicType? type, IBiliDynamicCardInfo? cardData)> GetSingleDynamic(
-            long dynamicID)
+            long dynamicID,
+            HttpClient? client = null)
         {
             if (dynamicID < 0)
                 throw new ArgumentOutOfRangeException(nameof(dynamicID));
-            var response = await Utils.RequestStringAsync($"{DynamicURL}?dynamic_id={dynamicID}");
+            var response = await Utils.RequestStringAsync($"{DynamicURL}?dynamic_id={dynamicID}", null, client);
 
             if (string.IsNullOrEmpty(response))
                 return (false, DynamicType.Error, null);

@@ -12,6 +12,7 @@ namespace BiliAPI.BiliInfo.BiliDynamicCardsInfo
         }
 
         public override string Content => $"{Card.title}-{Card.desc}";
+        public string Title => Card.title!;
 
         /// <summary>
         /// 视频发布时间

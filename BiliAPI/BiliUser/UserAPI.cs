@@ -17,10 +17,10 @@ namespace BiliAPI.BiliUser
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, BiliUserInfo? userData)> GetUserData(
-            string uid)
+            string uid, HttpClient? client = null)
         {
             if (long.TryParse(uid, out var _uid))
-                return await GetUserData(_uid);
+                return await GetUserData(_uid, client);
             else
                 throw new ArgumentException("Invalid uid");
         }
@@ -35,14 +35,16 @@ namespace BiliAPI.BiliUser
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, BiliUserInfo? userData)> GetUserData(
-            long uid)
+            long uid, HttpClient? client = null)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");
-            var response = await Utils.RequestStringAsync($"{UserURL}?mid={uid}");
+            var response = await Utils.RequestStringAsync($"{UserURL}?mid={uid}", null, client);
 
-            if (string.IsNullOrEmpty(response))
-                return (false, null);
+            if (response?.StartsWith("{\"code\":-509,\"message\":\"请求过于频繁，请稍后再试\",\"ttl\":1}{") == true)
+            {
+                response = response?.Replace("{\"code\":-509,\"message\":\"请求过于频繁，请稍后再试\",\"ttl\":1}", ""); // ???这东西到底是怎么存在的
+            }
 
             var result = new BiliUserInfo(response);
             return (result.Root?.code == 0, result);
@@ -58,11 +60,11 @@ namespace BiliAPI.BiliUser
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, BiliUserVideosInfo? userData)> GetUserVideoData(
-            long uid)
+            long uid, HttpClient? client = null)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");
-            var response = await Utils.RequestStringAsync($"{UserVideoURL}?mid={uid}");
+            var response = await Utils.RequestStringAsync($"{UserVideoURL}?mid={uid}", null, client);
 
             if (string.IsNullOrEmpty(response))
                 return (false, null);
@@ -81,11 +83,11 @@ namespace BiliAPI.BiliUser
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="JsonException"></exception>
         public static async Task<(bool success, BiliUserVideoItemInfo? userData)> GetUserLatestVideoData(
-            long uid)
+            long uid, HttpClient? client = null)
         {
             if (uid < 0)
                 throw new NullReferenceException("Invalid uid");
-            (var success, var result) = await GetUserVideoData(uid);
+            (var success, var result) = await GetUserVideoData(uid, client);
             if (success)
                 return (success, result?.Videos.FirstOrDefault());
             else

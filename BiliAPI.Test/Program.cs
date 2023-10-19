@@ -9,6 +9,9 @@ JsonSerializerOptions jsonOption = new()
     Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
     WriteIndented = true,
 };
+
+Settings.User_Agent = "Mozilla/5.0";
+
 Console.WriteLine("动态V2获取测试");
 (var success, var dynamicV2Data) = await BiliAPI.BiliDynamicV2.DynamicV2API.GetDynamics(10021741);
 if (success)
@@ -24,15 +27,26 @@ if (success)
 }
 else
     Console.WriteLine("动态信息获取失败");
+Console.WriteLine("动态V2Single获取测试");
+(success, var type, var dynamicV2SingleData) = await BiliAPI.BiliDynamicV2.DynamicV2API.GetSingleDynamic(849234378697474054);
+
+Console.WriteLine(type);
+if (success)
+{
+    Console.WriteLine($"--- {dynamicV2SingleData.modules.module_dynamic.major?.type}");
+    Console.WriteLine(Utils.Serialize(dynamicV2SingleData, jsonOption));
+}
+else
+    Console.WriteLine("动态信息获取失败");
 Console.WriteLine("用户信息获取测试");
-(success, var userData) = await BiliAPI.BiliUser.UserAPI.GetUserData(10021741);
+(success, var userData) = await BiliAPI.BiliUser.UserAPI.GetUserData(1351379);
 if (success)
     Console.WriteLine(Utils.Serialize(userData!, jsonOption));
 else
     Console.WriteLine("用户信息获取失败");
 
 Console.WriteLine("动态获取测试");
-(success, var dynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetDynamics(3493124712172018);
+(success, var dynamicData) = await BiliAPI.BiliDynamic.DynamicAPI.GetDynamics(10021741);
 if (success)
 {
     foreach (var d in dynamicData!.Cards)

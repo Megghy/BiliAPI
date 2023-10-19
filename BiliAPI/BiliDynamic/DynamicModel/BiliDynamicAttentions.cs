@@ -2,6 +2,6 @@
 {
     public struct BiliDynamicAttentions
     {
-        public int[] uids { get; set; }
+        public long[] uids { get; set; }
     }
 }

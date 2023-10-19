@@ -50,7 +50,10 @@ namespace BiliAPI
             var dataTime = new DateTime(1970, 1, 1, 8, 0, 0);
             return dataTime.AddSeconds(unix);
         }
-        public static readonly HttpClient httpClient = new();
+        public static readonly HttpClient httpClient = new(new HttpClientHandler()
+        {
+            AutomaticDecompression = System.Net.DecompressionMethods.All
+        });
         public static readonly JsonSerializerOptions jsonOption = new()
         {
             PropertyNameCaseInsensitive = true,
@@ -68,7 +71,18 @@ namespace BiliAPI
         {
             if (json == null)
                 throw new ArgumentNullException(nameof(json));
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
+            try
+            {
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
+            }
+            catch
+            {
+                if (Settings.WriteJsonWhenError)
+                {
+                    Console.WriteLine(json);
+                }
+                throw;
+            }
         }
         public static string? Serialize(object o, JsonSerializerOptions? option = null)
         {
@@ -78,20 +92,29 @@ namespace BiliAPI
         }
 
         public static HttpResponseMessage? Request(string url) => RequestAsync(url).Result;
-        public static async Task<HttpResponseMessage?> RequestAsync(string url)
+        public static async Task<HttpResponseMessage?> RequestAsync(string url, IEnumerable<KeyValuePair<string, string>>? headers = null, HttpClient? client = null)
         {
             if (url == null)
                 throw new ArgumentNullException(nameof(url));
-            var uri = new Uri(url);
+            var uri = new Uri(Settings.UseFetcher ? $"{Settings.FetcherUrl}{url}" : url);
             var request = new HttpRequestMessage(HttpMethod.Get, uri);
-            request.Headers.Add("User-Agent", Settings.User_Agent);
-            request.Headers.Add("cookie", Settings.Cookie);
-            return await httpClient.SendAsync(request);
+            if (headers?.Any() == true)
+            {
+                foreach (var header in headers)
+                {
+                    request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                }
+            }
+            if (!string.IsNullOrEmpty(Settings.Cookie) && !request.Headers.Contains("cookie"))
+                request.Headers.TryAddWithoutValidation("cookie", Settings.Cookie);
+            if (!string.IsNullOrEmpty(Settings.User_Agent) && !request.Headers.Contains("User-Agent"))
+                request.Headers.TryAddWithoutValidation("User-Agent", Settings.User_Agent);
+            return await (client ?? httpClient).SendAsync(request);
         }
-        public static async Task<string?> RequestStringAsync(string url)
+        public static async Task<string?> RequestStringAsync(string url, IEnumerable<KeyValuePair<string, string>>? headers = null, HttpClient? client = null)
         {
-            return await (await RequestAsync(url))?.Content?.ReadAsStringAsync();
+            return await (await RequestAsync(url, headers, client))?.Content?.ReadAsStringAsync();
         }
-        public static string? RequestString(string url) => RequestStringAsync(url).Result;
+        public static string? RequestString(string url, HttpClient? client = null) => RequestStringAsync(url, null, client).Result;
     }
 }

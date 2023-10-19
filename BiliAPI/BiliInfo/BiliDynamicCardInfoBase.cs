@@ -32,7 +32,6 @@ namespace BiliAPI.BiliInfo.BiliDynamicCardsInfo
         /// 动态的作者, 部分字段可能不存在
         /// </summary>
         public virtual BiliUserInfo Author => new(CardContainer?.desc?.user_profile);
-
         /// <summary>
         /// 动态的id
         /// </summary>

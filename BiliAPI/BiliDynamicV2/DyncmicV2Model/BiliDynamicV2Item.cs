@@ -3,7 +3,11 @@ using BiliAPI.BiliInterface;
 
 namespace BiliAPI.BiliDynamicV2.DyncmicV2Model
 {
-    public class BiliDynamicV2Item : IBiliData
+    public class BiliDynamicV2ItemContainer : IBiliData
+    {
+        public BiliDynamicV2Item? item { get; set; }
+    }
+    public class BiliDynamicV2Item
     {
         public BiliDynamicV2Basic basic { get; set; }
         public string id_str { get; set; }
