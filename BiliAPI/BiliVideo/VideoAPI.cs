@@ -15,7 +15,7 @@ namespace BiliAPI.BiliVideo
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="JsonException"></exception>
-        public static async Task<(bool success, BiliVideoInfo? userData)> GetVideoData(
+        public static async Task<(bool success, string message, BiliVideoInfo? videoData)> GetVideoData(
             string? bvid)
         {
             if (bvid == null)
@@ -23,10 +23,10 @@ namespace BiliAPI.BiliVideo
             var response = await Utils.RequestStringAsync($"{VideoURL}?bvid={bvid}");
 
             if (string.IsNullOrEmpty(response))
-                return (false, null);
+                return (false, null, null);
 
             var result = new BiliVideoInfo(response);
-            return (result.Root?.code == 0, result);
+            return (result.Root?.code == 0, result.Root?.message, result);
         }
         /// <summary>
         /// 获取指定视频基本信息

@@ -11,7 +11,7 @@
     {
         public string action_url { get; set; }
         public string end_url { get; set; }
-        public int id { get; set; }
+        public long id { get; set; }
         public string start_url { get; set; }
     }
 }

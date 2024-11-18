@@ -27,7 +27,7 @@ namespace BiliAPI.BiliInfo.BiliDynamicCardsInfo
         /// <summary>
         /// 视频的bvid
         /// </summary>
-        public string BVID => Uri.TryCreate(Card.short_link_v2, UriKind.RelativeOrAbsolute, out var url)
+        public string BVID => string.IsNullOrEmpty(Card.short_link_v2) ? "null" : Uri.TryCreate(Card.short_link_v2, UriKind.RelativeOrAbsolute, out var url)
             && url.Segments.FirstOrDefault() is { } id
             ? id
             : "null";

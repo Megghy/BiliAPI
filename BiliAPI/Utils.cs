@@ -106,9 +106,11 @@ namespace BiliAPI
                 }
             }
             if (!string.IsNullOrEmpty(Settings.Cookie) && !request.Headers.Contains("cookie"))
-                request.Headers.TryAddWithoutValidation("cookie", Settings.Cookie);
+                request.Headers.TryAddWithoutValidation("Cookie", Settings.Cookie);
             if (!string.IsNullOrEmpty(Settings.User_Agent) && !request.Headers.Contains("User-Agent"))
                 request.Headers.TryAddWithoutValidation("User-Agent", Settings.User_Agent);
+            if (!string.IsNullOrEmpty(Settings.Referrer) && !request.Headers.Contains("Referer"))
+                request.Headers.TryAddWithoutValidation("Referer", Settings.Referrer);
             return await (client ?? httpClient).SendAsync(request);
         }
         public static async Task<string?> RequestStringAsync(string url, IEnumerable<KeyValuePair<string, string>>? headers = null, HttpClient? client = null)
