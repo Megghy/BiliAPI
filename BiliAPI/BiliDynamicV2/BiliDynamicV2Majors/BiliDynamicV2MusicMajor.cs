@@ -1,6 +1,4 @@
-﻿using BiliAPI.BiliDynamicV2.DyncmicV2Model;
-
-namespace BiliAPI.BiliDynamicV2.BiliDynamicV2Majors
+﻿namespace BiliAPI.BiliDynamicV2.BiliDynamicV2Majors
 {
     public struct BiliDynamicV2MusicMajor : IBiliDynamicV2Major
     {

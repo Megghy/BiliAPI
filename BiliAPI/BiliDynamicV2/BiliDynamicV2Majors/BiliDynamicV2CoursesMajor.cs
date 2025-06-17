@@ -11,6 +11,6 @@ namespace BiliAPI.BiliDynamicV2.BiliDynamicV2Majors
         public string? jump_url { get; set; }
         public string? sub_title { get; set; }
         public string? title { get; set; }
-       // public BiliDynamicV2MajorTypes Type => BiliDynamicV2MajorTypes.MAJOR_TYPE_COURSES;
+        // public BiliDynamicV2MajorTypes Type => BiliDynamicV2MajorTypes.MAJOR_TYPE_COURSES;
     }
 }
